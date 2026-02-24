@@ -78,10 +78,6 @@ function cellClickHandler (row, col) {
         gameAlive = false;
         alert(`${winer}`);
     }
-
-
-
-
 }
 
 function checkWinner() {
@@ -100,6 +96,9 @@ function checkWinner() {
         if (field[0][col] !== EMPTY &&
             field[0][col] === field[1][col] &&
             field[1][col] === field[2][col]) {
+            setColorCell(0, col);
+            setColorCell(1, col);
+            setColorCell(2, col);
             return field[0][col];
         }
     }
@@ -107,12 +106,18 @@ function checkWinner() {
     if (field[0][0] !== EMPTY &&
         field[0][0] === field[1][1] &&
         field[1][1] === field[2][2]) {
+        setColorCell(0, 0);
+        setColorCell(1, 1);
+        setColorCell(2, 2);
         return field[0][0];
     }
 
     if (field[0][2] !== EMPTY &&
         field[0][2] === field[1][1] &&
         field[1][1] === field[2][0]) {
+        setColorCell(0, 2);
+        setColorCell(1, 1);
+        setColorCell(2, 0);
         return field[0][2];
     }
 
