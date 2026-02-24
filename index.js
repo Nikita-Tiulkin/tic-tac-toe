@@ -89,6 +89,9 @@ function checkWinner() {
         if (field[row][0] !== EMPTY &&
             field[row][0] === field[row][1] &&
             field[row][1] === field[row][2]) {
+            setColorCell(row, 0);
+            setColorCell(row, 1);
+            setColorCell(row, 2);
             return field[row][0];
         }
     }
@@ -121,6 +124,11 @@ function renderSymbolInCell (symbol, row, col, color = '#333') {
 
     targetCell.textContent = symbol;
     targetCell.style.color = color;
+}
+
+function setColorCell (row, col) {
+    const targetCell = findCell(row, col);
+    targetCell.style.color = '#fd0707';
 }
 
 function findCell (row, col) {
