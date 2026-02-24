@@ -2,6 +2,15 @@ const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
 
+let hot = true;
+let gameAlive = true;
+let boardSize = 3;
+let field =[
+    [EMPTY, EMPTY, EMPTY],
+    [EMPTY, EMPTY, EMPTY],
+    [EMPTY, EMPTY, EMPTY]
+]
+
 const container = document.getElementById('fieldWrapper');
 
 startGame();
@@ -26,14 +35,85 @@ function renderGrid (dimension) {
     }
 }
 
+function IsBoardeFull(){
+    for (let row = 0; row < boardSize; row++) {
+        for(let col = 0; col < boardSize; col++) {
+            if(field[row][col] === EMPTY)
+                return false;
+        }
+    }
+    return true;
+}
 function cellClickHandler (row, col) {
     // Пиши код тут
     console.log(`Clicked on cell: ${row}, ${col}`);
 
+    // ИСПРАВЛЕНО: теперь вызывается правильная функция IsBoardeFull()
+    if (IsBoardeFull()) {
+        alert('Победила дружба! Ничья!');
+        return;
+    }
 
-    /* Пользоваться методом для размещения символа в клетке так:
-        renderSymbolInCell(ZERO, row, col);
-     */
+    if(field[row][col] === EMPTY)
+    {
+        if(hot){
+            renderSymbolInCell(CROSS, row, col);
+            field[row][col] = CROSS;
+        } else{
+            renderSymbolInCell(ZERO, row, col);
+            field[row][col] = ZERO;
+        }
+        hot =! hot
+    }
+    if(IsBoardeFull())
+    {
+        gameAlive = false;
+        alert('Победила дружба!');
+        return;
+    }
+
+    const winer = checkWinner()
+    if(winer)
+    {
+        gameAlive = false;
+        alert(`${winer}`);
+    }
+
+
+
+
+}
+
+function checkWinner() {
+    for (let row = 0; row < boardSize; row++) {
+        if (field[row][0] !== EMPTY &&
+            field[row][0] === field[row][1] &&
+            field[row][1] === field[row][2]) {
+            return field[row][0];
+        }
+    }
+
+    for (let col = 0; col < boardSize; col++) {
+        if (field[0][col] !== EMPTY &&
+            field[0][col] === field[1][col] &&
+            field[1][col] === field[2][col]) {
+            return field[0][col];
+        }
+    }
+
+    if (field[0][0] !== EMPTY &&
+        field[0][0] === field[1][1] &&
+        field[1][1] === field[2][2]) {
+        return field[0][0];
+    }
+
+    if (field[0][2] !== EMPTY &&
+        field[0][2] === field[1][1] &&
+        field[1][1] === field[2][0]) {
+        return field[0][2];
+    }
+
+    return null;
 }
 
 function renderSymbolInCell (symbol, row, col, color = '#333') {
@@ -56,6 +136,8 @@ function addResetListener () {
 function resetClickHandler () {
     console.log('reset!');
 }
+
+
 
 
 /* Test Function */
