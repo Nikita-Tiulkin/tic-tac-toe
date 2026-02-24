@@ -59,7 +59,7 @@ function cellClickHandler (row, col) {
         hot =! hot
     }
 
-    const winer = checkWinner()
+    let winer = checkWinner()
     if(winer)
     {
         gameAlive = false;
@@ -141,10 +141,20 @@ function addResetListener () {
     resetButton.addEventListener('click', resetClickHandler);
 }
 
-function resetClickHandler ()
+function resetClickHandler()
 {
+    field = [
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY]
+    ];
+    
+    gameAlive = true;
+    hot = true;
+    
     startGame();
 }
+
 
 
 
