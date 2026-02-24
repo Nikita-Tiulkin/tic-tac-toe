@@ -45,14 +45,7 @@ function IsBoardeFull(){
     return true;
 }
 function cellClickHandler (row, col) {
-    // Пиши код тут
     console.log(`Clicked on cell: ${row}, ${col}`);
-
-    // ИСПРАВЛЕНО: теперь вызывается правильная функция IsBoardeFull()
-    if (IsBoardeFull()) {
-        alert('Победила дружба! Ничья!');
-        return;
-    }
 
     if(field[row][col] === EMPTY && gameAlive)
     {
@@ -65,12 +58,6 @@ function cellClickHandler (row, col) {
         }
         hot =! hot
     }
-    if(IsBoardeFull())
-    {
-        gameAlive = false;
-        alert('Победила дружба!');
-        return;
-    }
 
     const winer = checkWinner()
     if(winer)
@@ -78,6 +65,14 @@ function cellClickHandler (row, col) {
         gameAlive = false;
         alert(`${winer}`);
     }
+
+    if(IsBoardeFull())
+    {
+        gameAlive = false;
+        alert('Победила дружба!');
+        return;
+    }
+
 }
 
 function checkWinner() {
@@ -146,15 +141,14 @@ function addResetListener () {
     resetButton.addEventListener('click', resetClickHandler);
 }
 
-function resetClickHandler () {
-    console.log('reset!');
+function resetClickHandler ()
+{
+    startGame();
 }
 
 
 
 
-/* Test Function */
-/* Победа первого игрока */
 function testWin () {
     clickOnCell(0, 2);
     clickOnCell(0, 0);
