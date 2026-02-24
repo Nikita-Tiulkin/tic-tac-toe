@@ -54,7 +54,7 @@ function cellClickHandler (row, col) {
         return;
     }
 
-    if(field[row][col] === EMPTY)
+    if(field[row][col] === EMPTY && gameAlive)
     {
         if(hot){
             renderSymbolInCell(CROSS, row, col);
